@@ -8,4 +8,4 @@ from flask_wtf.file import FileField, FileRequired, FileAllowed
 class MovieForm(FlaskForm):
     title = StringField('Title', validators = [InputRequired()])
     description = TextAreaField('Description', validators = [InputRequired()])
-    poster = FileField('Poster', validators = [FileField(), FileAllowed(['jpg', 'png'], 'Movie Posters Only!')])
+    poster = FileField('Poster', validators = [FileAllowed(['jpg', 'png'], 'Movie Posters Only!')])
