@@ -58,7 +58,27 @@ def add_movies():
     else:
         errors = form_errors(form)
         return jsonify({'errors':errors}), 400
+    
 
+@app.route('/api/v1/movies', methods=['GET'])
+def get_movies():
+    movie_list = []
+    movies_data = movies.query.all()
+    for movie in movies_data:
+        movie_data = {
+            'id': movie.id,
+            'title': movie.title,
+            'description': movie.description,
+            'poster': f"/api/v1/movies/{movie.poster}" 
+        }
+        movie_list.append(movie_data)
+    return jsonify({'movies': movie_list})
+
+from flask import send_from_directory
+
+@app.route('/api/v1/movies/<filename>', methods=['GET'])
+def get_poster(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 
 ###
