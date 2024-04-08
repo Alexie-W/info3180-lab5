@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted} from 'vue';
+import { ref, onMounted } from 'vue';
 
 const movie = ref({ title: '', description: '', poster: null });
 
@@ -29,37 +29,33 @@ const saveMovie = () => {
         method: 'POST',
         body: form_data,
         headers: { 
-        'X-CSRFToken': csrf_token.value 
+            'X-CSRFToken': csrf_token.value 
         }
     })
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        // Display a success message
-    })
-    .catch(error => {
-        console.error(error);
+    .then(function (response) { 
+        return response.json(); 
+    }) 
+    .then(function (data) { 
+        // display a success message 
+        console.log(data); 
+    }) 
+    .catch(function (error) { 
+        console.log(error); 
     });
-};
-
+}
 
 let csrf_token = ref(""); 
 
 function getCsrfToken() { 
-
-fetch('/api/v1/csrf-token') 
-.then((response) => response.json()) 
-.then((data) => { 
-
-    console.log(data); 
-csrf_token.value = data.csrf_token; 
-}) 
-} 
+    fetch('/api/v1/csrf-token') 
+    .then((response) => response.json()) 
+    .then((data) => { 
+        console.log(data); 
+        csrf_token.value = data.csrf_token; 
+    }) 
+}
 
 onMounted(() => { 
     getCsrfToken(); 
 }); 
-
-
 </script>
-

@@ -28,7 +28,7 @@ def get_csrf():
     return jsonify({'csrf_token': generate_csrf()})
 
 @app.route('/api/v1/movies', methods = ['POST'])
-def movies():
+def add_movies():
     form = MovieForm()
     
     if form.validate_on_submit():
